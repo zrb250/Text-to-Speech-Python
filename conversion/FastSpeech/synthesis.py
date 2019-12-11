@@ -63,7 +63,6 @@ def tts(text, filename, alpha=1.0):
     for words in texts:
         mel, mel_postnet, mel_torch, mel_postnet_torch = synthesis(
             g_model, words, alpha=alpha)
-
         waveglow.inference.inference(mel_postnet_torch, wave_glow, filename)
 
         # mel_tac2, _, _, alignment = utils.load_data_from_tacotron2(words, tacotron2)

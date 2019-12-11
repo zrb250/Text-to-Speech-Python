@@ -34,13 +34,12 @@ def translate(request):
 	selected_lang = (language_list_master[conversion_lang] if conversion_lang in language_list_master else "")
 
 	# audio_save_path = 'static/files/' + cvm.id_generator() + ".mp3"
-	audio_save_path = 'static/files/LJ001-0002' + ".wav"
+	audio_save_path = 'static/files/synthesis_result.wav'
 	conversion_status = False
 
 	if conversion_text!="":
-		gts_conversion = gTTS(text=conversion_text, lang=conversion_lang)
+		# gts_conversion = gTTS(text=conversion_text, lang=conversion_lang)
 		tts(conversion_text, audio_save_path)
-		# gts_conversion.save(audio_save_path)
 		conversion_status = True
 
 	content = {
