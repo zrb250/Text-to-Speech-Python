@@ -3,12 +3,12 @@ import numpy as np
 import shutil
 import os
 
-from utils import load_data, get_Tacotron2, get_WaveGlow
-from utils import process_text, load_data
-from data import ljspeech
-import hparams as hp
-import waveglow
-import Audio
+from .utils import load_data, get_Tacotron2, get_WaveGlow
+from .utils import process_text, load_data
+from .data import ljspeech
+from .hparams import hp
+from . import waveglow
+from . import Audio
 
 
 def preprocess_ljspeech(filename):

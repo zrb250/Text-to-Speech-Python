@@ -2,18 +2,15 @@ import torch
 import torch.nn as nn
 import matplotlib
 matplotlib.use('agg')
-import matplotlib.pyplot as plt
 import numpy as np
-import time
 import os
 
-from fastspeech import FastSpeech
-from text import text_to_sequence
-import hparams as hp
-import utils
-import Audio
-import glow
-import waveglow
+from .fastspeech import FastSpeech
+from .text import text_to_sequence
+from .hparams import hp
+from . import utils
+from . import Audio
+from . import waveglow
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -46,6 +43,28 @@ def synthesis(model, text, alpha=1.0):
             mel_postnet[0].cpu().transpose(0, 1), \
             mel.transpose(1, 2), \
             mel_postnet.transpose(1, 2)
+
+
+def tts(text, filename, alpha=1.0):
+    num = 600000
+    print("load model....")
+    model = get_FastSpeech(num)
+    wave_glow = utils.get_WaveGlow()
+    # tacotron2 = utils.get_Tacotron2()
+    print("load model finish!")
+    if not os.path.exists("results"):
+        os.mkdir("results")
+
+    texts = [text]
+    for words in texts:
+        mel, mel_postnet, mel_torch, mel_postnet_torch = synthesis(
+            model, words, alpha=alpha)
+
+        waveglow.inference.inference(mel_postnet_torch, wave_glow, filename)
+
+        # mel_tac2, _, _, alignment = utils.load_data_from_tacotron2(words, tacotron2)
+        # waveglow.inference.inference(torch.stack([torch.from_numpy(
+        #     mel_tac2).cuda()]), wave_glow, filename)
 
 
 if __name__ == "__main__":

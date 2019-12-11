@@ -1,12 +1,9 @@
 import torch
 import torch.nn as nn
 from torch.nn import functional as F
-import numpy as np
 from collections import OrderedDict
 
-from Transformer.SubLayers import MultiHeadAttention, PositionwiseFeedForward
-from text.symbols import symbols
-
+from .SubLayers import MultiHeadAttention, PositionwiseFeedForward
 
 class Linear(nn.Module):
     """

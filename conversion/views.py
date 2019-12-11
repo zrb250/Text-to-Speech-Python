@@ -4,6 +4,7 @@ from django.template import loader
 
 from .lib.gtts import gTTS
 from .models import ConversionModel
+from .FastSpeech.synthesis import tts
 
 def index(request):
 	conversion_text = ''
@@ -33,11 +34,12 @@ def translate(request):
 	selected_lang = (language_list_master[conversion_lang] if conversion_lang in language_list_master else "")
 
 	# audio_save_path = 'static/files/' + cvm.id_generator() + ".mp3"
-	audio_save_path = 'static/files/LJ001-0001' + ".wav"
+	audio_save_path = 'static/files/LJ001-0002' + ".wav"
 	conversion_status = False
 
 	if conversion_text!="":
 		gts_conversion = gTTS(text=conversion_text, lang=conversion_lang)
+		tts(conversion_text, audio_save_path)
 		# gts_conversion.save(audio_save_path)
 		conversion_status = True
 

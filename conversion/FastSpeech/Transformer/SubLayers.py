@@ -2,8 +2,9 @@ import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
 
-from Transformer.Modules import ScaledDotProductAttention
-import hparams as hp
+from .Modules import ScaledDotProductAttention
+from ..hparams import hp
+# import hparams as hp
 
 
 class MultiHeadAttention(nn.Module):

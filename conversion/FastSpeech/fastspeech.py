@@ -1,10 +1,10 @@
 import torch
 import torch.nn as nn
 
-from Transformer.Models import Encoder, Decoder
-from Transformer.Layers import Linear, PostNet
-from modules import LengthRegulator
-import hparams as hp
+from .Transformer.Models import Encoder, Decoder
+from .Transformer.Layers import Linear, PostNet
+from .modules import LengthRegulator
+from .hparams import hp
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 

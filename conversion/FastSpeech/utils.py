@@ -7,9 +7,10 @@ matplotlib.use('agg')
 import matplotlib.pyplot as plt
 import os
 
-import Tacotron2
-import text
-import hparams
+from .Tacotron2 import T2hparams,T2model,T2layers
+
+from .text import text_to_sequence
+from .hparams import hp
 
 
 def process_text(train_text_path):
@@ -65,8 +66,8 @@ def get_Tacotron2():
     checkpoint_path = os.path.join(os.path.join(
         "Tacotron2", "pretrained_model"), checkpoint_path)
 
-    model = Tacotron2.model.Tacotron2(
-        Tacotron2.hparams.create_hparams()).cuda()
+    model = T2model.Tacotron2(
+        T2hparams.create_hparams()).cuda()
     model.load_state_dict(torch.load(checkpoint_path)['state_dict'])
     _ = model.cuda().eval()
 
@@ -142,7 +143,7 @@ def pad(input_ele, mel_max_length=None):
 
 
 def load_data(txt, mel, model):
-    character = text.text_to_sequence(txt, hparams.text_cleaners)
+    character = text_to_sequence(txt, hp.text_cleaners)
     character = torch.from_numpy(np.stack([np.array(character)])).long().cuda()
 
     text_length = torch.Tensor([character.size(1)]).long().cuda()
@@ -172,7 +173,7 @@ def load_data(txt, mel, model):
 
 
 def load_data_from_tacotron2(txt, model):
-    character = text.text_to_sequence(txt, hparams.text_cleaners)
+    character = text_to_sequence(txt, hp.text_cleaners)
     character = torch.from_numpy(np.stack([np.array(character)])).long().cuda()
 
     with torch.no_grad():

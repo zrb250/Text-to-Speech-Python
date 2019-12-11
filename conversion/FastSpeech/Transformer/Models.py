@@ -2,10 +2,11 @@ import torch
 import torch.nn as nn
 import numpy as np
 
-import Transformer.Constants as Constants
-from Transformer.Layers import FFTBlock, PreNet, PostNet, Linear
-from text.symbols import symbols
-import hparams as hp
+from . import Constants
+from .Layers import FFTBlock, PreNet, PostNet, Linear
+from ..text.symbols import symbols
+from ..hparams import hp
+# import hparams as hp
 
 
 def get_non_pad_mask(seq):

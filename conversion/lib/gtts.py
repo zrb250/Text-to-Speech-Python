@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 import re, requests, warnings
-from six.moves import urllib
-from requests.packages.urllib3.exceptions import InsecureRequestWarning
 from .gtts_token import Token
 
 class gTTS:

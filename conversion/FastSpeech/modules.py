@@ -7,8 +7,8 @@ import numpy as np
 import copy
 import math
 
-import hparams as hp
-import utils
+from .hparams import hp
+from . import utils
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 

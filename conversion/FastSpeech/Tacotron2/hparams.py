@@ -1,5 +1,4 @@
-from text import symbols
-
+from ..text import symbols
 
 class Hparams:
     """ hyper parameters """
