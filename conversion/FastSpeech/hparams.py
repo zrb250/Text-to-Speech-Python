@@ -36,7 +36,7 @@ class hp():
 
     # Train
     alignment_path = "./alignments"
-    checkpoint_path = "./model_new"
+    checkpoint_path = "conversion/FastSpeech/model_new"
     logger_path = "./logger"
     mel_ground_truth = "./mels"
 

@@ -52,8 +52,8 @@ def tts(text, filename, alpha=1.0):
     wave_glow = utils.get_WaveGlow()
     # tacotron2 = utils.get_Tacotron2()
     print("load model finish!")
-    if not os.path.exists("results"):
-        os.mkdir("results")
+    # if not os.path.exists("results"):
+    #     os.mkdir("results")
 
     texts = [text]
     for words in texts:
