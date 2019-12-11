@@ -6,9 +6,10 @@ import matplotlib
 matplotlib.use('agg')
 import matplotlib.pyplot as plt
 import os
+import sys
+sys.path.append(os.path.dirname(os.path.abspath(__file__)) + "/waveglow")
 
 from .Tacotron2 import T2hparams,T2model,T2layers
-
 from .text import text_to_sequence
 from .hparams import hp
 
