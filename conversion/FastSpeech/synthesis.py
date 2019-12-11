@@ -12,9 +12,6 @@ from . import utils
 from . import Audio
 from . import waveglow
 
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-
-
 def get_FastSpeech(num):
     checkpoint_path = "checkpoint_" + str(num) + ".pth.tar"
     model = nn.DataParallel(FastSpeech()).to(device)
@@ -23,7 +20,6 @@ def get_FastSpeech(num):
     model.eval()
 
     return model
-
 
 def synthesis(model, text, alpha=1.0):
     text = np.array(text_to_sequence(text, hp.text_cleaners))
@@ -45,20 +41,28 @@ def synthesis(model, text, alpha=1.0):
             mel_postnet.transpose(1, 2)
 
 
+num = 600000
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+print("load model....")
+g_model = get_FastSpeech(num)
+wave_glow = utils.get_WaveGlow()
+# tacotron2 = utils.get_Tacotron2()
+print("load model finish!")
+
 def tts(text, filename, alpha=1.0):
-    num = 600000
-    print("load model....")
-    model = get_FastSpeech(num)
-    wave_glow = utils.get_WaveGlow()
-    # tacotron2 = utils.get_Tacotron2()
-    print("load model finish!")
+    # num = 600000
+    # print("load model....")
+    # model = get_FastSpeech(num)
+    # wave_glow = utils.get_WaveGlow()
+    # # tacotron2 = utils.get_Tacotron2()
+    # print("load model finish!")
     # if not os.path.exists("results"):
     #     os.mkdir("results")
 
     texts = [text]
     for words in texts:
         mel, mel_postnet, mel_torch, mel_postnet_torch = synthesis(
-            model, words, alpha=alpha)
+            g_model, words, alpha=alpha)
 
         waveglow.inference.inference(mel_postnet_torch, wave_glow, filename)
 
