@@ -23,6 +23,22 @@
 						{% endfor %}
 					</select>
 				</div>
+                <div class="form-group">
+                    <label for="conversion_text">TTS engine</label>
+                    <select class="form-control" name="conversion_engine" id="conversion_engine" required="required">
+                        {% for key, value in tts_engine_list %}
+                            <option {% if selected_engine == key %} selected="selected" {% endif %} value="{{key}}">{{value}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="conversion_text">Speech speed (enable on fastspeech engine)</label>
+                    <select class="form-control" name="conversion_speed" id="conversion_speed" required="required">
+                        {% for key, value in conversion_speed_list %}
+                            <option {% if selected_speed == key %} selected="selected" {% endif %} value="{{key}}">{{value}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
 				<div class="form-group">
 					<label for="conversion_text">Input Text</label>
 					<textarea class="form-control" id="conversion_text" name="conversion_text" required="required" rows="5">{{conversion_text}}</textarea>

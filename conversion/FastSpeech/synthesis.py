@@ -46,28 +46,26 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 print("load model....")
 g_model = get_FastSpeech(num)
 wave_glow = utils.get_WaveGlow()
-# tacotron2 = utils.get_Tacotron2()
+tacotron2 = utils.get_Tacotron2()
 print("load model finish!")
 
-def tts(text, filename, alpha=1.0):
-    # num = 600000
-    # print("load model....")
-    # model = get_FastSpeech(num)
-    # wave_glow = utils.get_WaveGlow()
-    # # tacotron2 = utils.get_Tacotron2()
-    # print("load model finish!")
-    # if not os.path.exists("results"):
-    #     os.mkdir("results")
-
+def tts(text, filename, engine='fastspeech', speed='n'):
     texts = [text]
+    if(speed =='f'):
+        alpha = 1.5
+    elif(speed =='s'):
+        alpha = 0.5
+    else:
+        alpha = 1.0
     for words in texts:
-        mel, mel_postnet, mel_torch, mel_postnet_torch = synthesis(
-            g_model, words, alpha=alpha)
-        waveglow.inference.inference(mel_postnet_torch, wave_glow, filename)
-
-        # mel_tac2, _, _, alignment = utils.load_data_from_tacotron2(words, tacotron2)
-        # waveglow.inference.inference(torch.stack([torch.from_numpy(
-        #     mel_tac2).cuda()]), wave_glow, filename)
+        if(engine == 'fastspeech'):
+            mel, mel_postnet, mel_torch, mel_postnet_torch = synthesis(
+                g_model, words, alpha=alpha)
+            waveglow.inference.inference(mel_postnet_torch, wave_glow, filename)
+        else:
+            mel_tac2, _, _, alignment = utils.load_data_from_tacotron2(words, tacotron2)
+            waveglow.inference.inference(torch.stack([torch.from_numpy(
+                mel_tac2).cuda()]), wave_glow, filename)
 
 
 if __name__ == "__main__":

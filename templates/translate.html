@@ -29,15 +29,23 @@
 				<label for="conversion_text">Converted Language : </label>
 				<span>{{selected_lang}}</span>
 			</div>
+            <div class="form-group">
+                <label for="conversion_text">Converted Engine : </label>
+                <span>{{selected_engine}}</span>
+            </div>
+            <div class="form-group">
+                <label for="conversion_text">Speech Speed : </label>
+                <span>{{selected_speed}}</span>
+            </div>
+            <div class="form-group">
+                <label for="conversion_text">Input Text : </label>
+                <span>{{conversion_text}}</span>
+            </div>
 			<div class="form-group">
-				<label for="conversion_text">Saved Path : </label>
+				<label for="conversion_text">Synthesis Result : </label>
 				{% if conversion_status %}
 					<span><a href="{{saved_path}}" target="_blank">{{saved_path}}</a></span>
 				{% endif %}
-			</div>
-			<div class="form-group">
-				<label for="conversion_text">Input Text : </label>
-				<span>{{conversion_text}}</span>
 			</div>
 
 		</div>
