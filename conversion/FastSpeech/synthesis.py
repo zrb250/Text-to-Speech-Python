@@ -52,9 +52,9 @@ print("load model finish!")
 def tts(text, filename, engine='fastspeech', speed='n'):
     texts = [text]
     if(speed =='f'):
-        alpha = 1.5
-    elif(speed =='s'):
         alpha = 0.5
+    elif(speed =='s'):
+        alpha = 1.5
     else:
         alpha = 1.0
     for words in texts:
