@@ -1,2 +1,2 @@
 #python3 manage.py migrate
-python3 manage.py runserver
+CUDA_VISIBLE_DEVICES=4 python3 manage.py runserver 0.0.0.0:8000
